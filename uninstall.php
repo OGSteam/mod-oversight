@@ -4,6 +4,8 @@
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 
 global $db, $table_prefix;
+define("TABLE_OVERSIGHT", $table_prefix . "oversight");
+define("TABLE_OVERSIGHT_PLAYERS", $table_prefix . "oversight_players");
 
 // On récupère l'id du mod pour xtense...
 $query = "SELECT id FROM ".TABLE_MOD." WHERE action='oversight'";
@@ -28,7 +30,7 @@ if ($db->sql_numrows($result) != 0) {
 
 
 $mod_uninstall_name = "oversight";
-$mod_uninstall_table = null;
+$mod_uninstall_table = array(TABLE_OVERSIGHT,TABLE_OVERSIGHT_PLAYERS);
 uninstall_mod($mod_uninstall_name, $mod_uninstall_table);
 
 ?>

@@ -1,11 +1,13 @@
-
 <?php
-
-
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");
+include_once("mod/oversight/common.php");
 
-echo "<h1>Hello World</h1>";
+
+include_once(FOLDER_VIEW."header.php");
+
+var_dump(getPlayer());
 
 
-require_once("./views/page_tail.php");
-?>
+
+
+include_once(FOLDER_VIEW."footer.php");
