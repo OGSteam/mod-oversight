@@ -11,7 +11,7 @@ function getPlayer()
 
     while ($tPlayer = $db->sql_fetch_row($result))
     {
-        $Tretour[$tPlayer["id_player"]] = array($tPlayer["id_player"],$tPlayer["name_player"],$tPlayer["status"]);
+        $Tretour[$tPlayer["id_player"]] = array("id_player" => $tPlayer["id_player"],"name_player"=>$tPlayer["name_player"],"status"=>$tPlayer["status"]);
 
     }
     return $Tretour;
