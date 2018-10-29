@@ -10,6 +10,7 @@ $data["menu"][]=array("nom" => "Mise en surveillance", "url" => "add");
 $data["players"] = getPlayer();
 
 
+
 // vue par defaut
 switch ($pub_page) {
         case "list":
@@ -21,7 +22,9 @@ switch ($pub_page) {
             break;
         case  "add":
             $data["menuactif"]="add";
+            $data["playerStatus"]=getStatus();
             include_once(FOLDER_VIEW . "header.php");
+            include_once(FOLDER_JS . "jsadd.php");
             include_once(FOLDER_VIEW . "menu.php");
             include_once(FOLDER_VIEW . "add.php");
             include_once(FOLDER_VIEW . "footer.php");

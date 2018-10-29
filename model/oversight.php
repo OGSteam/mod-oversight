@@ -6,7 +6,7 @@ if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 function getPlayer()
 {
     global $db;
-    $result = $db->sql_query("SELECT id_player, name_player , 	status FROM " . TABLE_SPA_PLAYERS);
+    $result = $db->sql_query("SELECT id_player, name_player , 	status FROM " . TABLE_SPA_PLAYERS." order by name_player ASC");
     $Tretour=array();
 
     while ($tPlayer = $db->sql_fetch_row($result))
@@ -15,5 +15,23 @@ function getPlayer()
 
     }
     return $Tretour;
+
+}
+
+
+
+
+function getStatus()
+{
+    global $db;
+    $result = $db->sql_query("SELECT distinct(status)FROM " . TABLE_SPA_PLAYERS ." order by status ASC ");
+    $tRetour=array();
+
+    while ($tStatus = $db->sql_fetch_row($result))
+    {
+        $tRetour[] = $tStatus["status"];
+
+    }
+    return $tRetour;
 
 }

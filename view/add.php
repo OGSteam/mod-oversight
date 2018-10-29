@@ -1,54 +1,37 @@
 <?php
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 global $data;
-$px=100;
+$px = 100;
 ?>
 
 <h2> AJOUT</h2>
 
-<form action="/index.php?action=oversight" id="add">
-    <select name="selectPlayer">
-        <?php foreach ($data["players"] as $player) : ?>
-            <option value="<?php echo $player["id_player"]; ?>">
-                <?php echo $player["name_player"]; ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <input type="submit">
-</form>
-<br />
+<br/>
 <table>
     <thead>
     <tr>
+        <!-- version utletieur ...
         <th class="c">
-            Filtre :
+            Filtre Nom:
         </th>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_">
-            None
+        <td width="<?php echo $px; ?>px" class="c Filtre_name">
+        <input type="text" id="Filtre_name" class="targetName"/>
+
         </td>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_a">
-            a
-        </td>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_I">
-            I
+        -->
+        <th class="c">
+            Filtre Status:
         </th>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_v">
-            v
-        </th>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_vI">
-            vI
-        </th>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_vIb">
-            vIb
-        </th>
-        <td  width="<?php echo $px;?>px" class="c Filtre_status" data-status="status_b">
-            b
-        </th>
+        <?php foreach ($data["playerStatus"] as $sStatus) : ?>
+            <td width="<?php echo $px; ?>px" class="c Filtre_status" data-status="status_<?php echo $sStatus; ?>">
+                <?php echo $sStatus; ?>
+            </td>
+        <?php endforeach; ?>
     </tr>
     </thead>
 </table>
 
-<br />
+<br/>
 <table>
     <thead>
     <tr>

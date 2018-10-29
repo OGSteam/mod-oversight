@@ -8,12 +8,12 @@ global $data;
         <?php foreach ($data["menu"] as $key) : ?>
             <?php if ($data["menuactif"] == $key["url"]) : ?>
                 <th>
-                                            <?php echo $key["nom"]; ?></php>
+                                            <?php echo $key["nom"]; ?>
                                </th>
             <?php else : ?>
                 <td class="c">
                     <a href="index.php?action=oversight&page=<?php echo $key["url"]; ?>">
-                        <?php echo $key["nom"]; ?></php>
+                        <?php echo $key["nom"]; ?>
                     </a>
                 </td>
             <?php endif; ?>
