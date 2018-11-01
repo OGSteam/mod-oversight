@@ -2,6 +2,7 @@
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 global $data;
 $px = 100;
+
 ?>
 
 <h2> AJOUT</h2>
@@ -46,7 +47,9 @@ $px = 100;
         </th>
     </tr>
     </thead>
+
     <?php foreach ($data["players"] as $player) : ?>
+
         <tr class="id_player_<?php echo $player["id_player"]; ?> status_<?php echo $player["status"]; ?>">
             <td class="c">
                 <?php echo $player["name_player"]; ?>
@@ -55,7 +58,13 @@ $px = 100;
                 <?php echo $player["status"]; ?>
             </td>
             <td class="c">
-                <a>Mise en Surveillance</a>
+                <?php if (in_array($player["id_player"], $data["mySurveillance"])) : ?>
+                    -
+                <?php else : ?>
+
+                    <a href="index.php?action=oversight&page=add&id=<?php echo $player["id_player"] ?>">Mise en
+                        Surveillance</a>
+                <?php endif; ?>
             </td>
         </tr>
 

@@ -14,6 +14,7 @@ define("FOLDER_MODEL","mod/oversight/model/");
 include_once(FOLDER_MODEL."oversight.php");
 include_once(FOLDER_FN."utils.php");
 
-
 //table
 define("TABLE_SPA_PLAYERS", $table_prefix . "superapix_players");
+define("TABLE_OVERSIGHT", $table_prefix . "oversight");
+define("TABLE_OVERSIGHT_PLAYERS", $table_prefix . "oversight_players");

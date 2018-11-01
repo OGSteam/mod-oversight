@@ -9,6 +9,13 @@ $data["menu"][]=array("nom" => "Mise en surveillance", "url" => "add");
 
 $data["players"] = getPlayer();
 
+$data["msg"]=array();
+$data["alert"] = array();
+if (!superapixinstalled())
+{
+    $data["alert"][] = "Attention, le mod superapix est requis";
+}
+
 
 
 // vue par defaut
@@ -21,6 +28,13 @@ switch ($pub_page) {
             include_once(FOLDER_VIEW . "footer.php");
             break;
         case  "add":
+            if (isset($pub_id))
+            {
+                addSurveillance((int)$pub_id);
+                $data["msg"][] = "Joueur ".$data["players"][(int)$pub_id]["name_player"]." ajouté";
+            }
+            $data["mySurveillance"] = getMySurveillance();
+            array_push($data["mySurveillance"], "0"); // player 0 ... :/
             $data["menuactif"]="add";
             $data["playerStatus"]=getStatus();
             include_once(FOLDER_VIEW . "header.php");

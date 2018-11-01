@@ -2,6 +2,8 @@
 
 if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 
+
+
 //retourne la liste des joueur id/nom
 function getPlayer()
 {
@@ -20,7 +22,7 @@ function getPlayer()
 
 
 
-
+//obetenir les differents status des joueurs
 function getStatus()
 {
     global $db;
@@ -33,5 +35,73 @@ function getStatus()
 
     }
     return $tRetour;
+
+}
+
+function getAllSurveillance()
+{
+    global $db;
+    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS ." ");
+    $tRetour=array();
+
+    while ($tStatus = $db->sql_fetch_row($result))
+    {
+        $tRetour[] = $tStatus["player_id"];
+
+    }
+    return $tRetour;
+
+}
+
+function getMySurveillance()
+{
+    global $db, $user_data;
+    $user_id = $user_data["user_id"];
+    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS ." WHERE  `sender_id`=".$user_id );
+    $tRetour=array();
+
+    while ($tStatus = $db->sql_fetch_row($result))
+    {
+        $tRetour[] = $tStatus["player_id"];
+
+    }
+    return $tRetour;
+
+}
+
+
+
+
+//met e surveillance un joueur
+function addSurveillance($player)
+{
+    global $db, $user_data;
+    $user_id = $user_data["user_id"];
+
+    $query = "REPLACE INTO ".TABLE_OVERSIGHT_PLAYERS;
+    $query .= " SET " ;
+    $query .= " `sender_id` = ".$user_id;
+    $query .= ", `player_id` = ".$player;
+
+    $db->sql_query($query);
+
+
+
+}
+
+//met e surveillance un joueur
+function delSurveillance($player)
+{
+    global $db, $user_data;
+    $user_id = $user_data["user_id"];
+
+    $query = "FROM".TABLE_OVERSIGHT_PLAYERS;
+    $query .= " WHERE " ;
+    $query .= " `sender_id` = ".$user_id;
+    $query .= ", `player_id` = ".$player;
+
+    $db->sql_query($query);
+
+
 
 }
