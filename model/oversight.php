@@ -3,17 +3,15 @@
 if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 
 
-
 //retourne la liste des joueur id/nom
 function getPlayer()
 {
     global $db;
-    $result = $db->sql_query("SELECT id_player, name_player , 	status FROM " . TABLE_SPA_PLAYERS." order by name_player ASC");
-    $Tretour=array();
+    $result = $db->sql_query("SELECT id_player, name_player , 	status FROM " . TABLE_SPA_PLAYERS . " order by name_player ASC");
+    $Tretour = array();
 
-    while ($tPlayer = $db->sql_fetch_row($result))
-    {
-        $Tretour[$tPlayer["id_player"]] = array("id_player" => $tPlayer["id_player"],"name_player"=>$tPlayer["name_player"],"status"=>$tPlayer["status"]);
+    while ($tPlayer = $db->sql_fetch_row($result)) {
+        $Tretour[$tPlayer["id_player"]] = array("id_player" => $tPlayer["id_player"], "name_player" => $tPlayer["name_player"], "status" => $tPlayer["status"]);
 
     }
     return $Tretour;
@@ -21,16 +19,14 @@ function getPlayer()
 }
 
 
-
 //obetenir les differents status des joueurs
 function getStatus()
 {
     global $db;
-    $result = $db->sql_query("SELECT distinct(status)FROM " . TABLE_SPA_PLAYERS ." order by status ASC ");
-    $tRetour=array();
+    $result = $db->sql_query("SELECT distinct(status)FROM " . TABLE_SPA_PLAYERS . " order by status ASC ");
+    $tRetour = array();
 
-    while ($tStatus = $db->sql_fetch_row($result))
-    {
+    while ($tStatus = $db->sql_fetch_row($result)) {
         $tRetour[] = $tStatus["status"];
 
     }
@@ -41,11 +37,10 @@ function getStatus()
 function getAllSurveillance()
 {
     global $db;
-    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS ." ");
-    $tRetour=array();
+    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS . " ");
+    $tRetour = array();
 
-    while ($tStatus = $db->sql_fetch_row($result))
-    {
+    while ($tStatus = $db->sql_fetch_row($result)) {
         $tRetour[] = $tStatus["player_id"];
 
     }
@@ -57,11 +52,10 @@ function getMySurveillance()
 {
     global $db, $user_data;
     $user_id = $user_data["user_id"];
-    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS ." WHERE  `sender_id`=".$user_id );
-    $tRetour=array();
+    $result = $db->sql_query("SELECT player_id FROM " . TABLE_OVERSIGHT_PLAYERS . " WHERE  `sender_id`=" . $user_id);
+    $tRetour = array();
 
-    while ($tStatus = $db->sql_fetch_row($result))
-    {
+    while ($tStatus = $db->sql_fetch_row($result)) {
         $tRetour[] = $tStatus["player_id"];
 
     }
@@ -69,7 +63,23 @@ function getMySurveillance()
 
 }
 
+function getListSurveillance()
+{
+    global $db;
+    $result = $db->sql_query("SELECT TOP.player_id as my_id_player , TU.user_name as my_user_name  FROM " . TABLE_OVERSIGHT_PLAYERS ."  as TOP  INNER JOIN " . TABLE_USER  . "  as TU ON TOP.sender_id =  TU.user_id    ");
+    $tRetour = array();
 
+    while ($tStatus = $db->sql_fetch_row($result)) {
+        if (in_array($tStatus["my_id_player"], array_keys($tRetour))) {
+            $tRetour[$tStatus["my_id_player"]][] = $tStatus["my_user_name"];
+        } else {
+            $tRetour[$tStatus["my_id_player"]] = array();
+            $tRetour[$tStatus["my_id_player"]][] = $tStatus["my_user_name"];
+        }
+    }
+    return $tRetour;
+
+}
 
 
 //met e surveillance un joueur
@@ -78,13 +88,12 @@ function addSurveillance($player)
     global $db, $user_data;
     $user_id = $user_data["user_id"];
 
-    $query = "REPLACE INTO ".TABLE_OVERSIGHT_PLAYERS;
-    $query .= " SET " ;
-    $query .= " `sender_id` = ".$user_id;
-    $query .= ", `player_id` = ".$player;
+    $query = "REPLACE INTO " . TABLE_OVERSIGHT_PLAYERS;
+    $query .= " SET ";
+    $query .= " `sender_id` = " . $user_id;
+    $query .= ", `player_id` = " . $player;
 
     $db->sql_query($query);
-
 
 
 }
@@ -95,13 +104,12 @@ function delSurveillance($player)
     global $db, $user_data;
     $user_id = $user_data["user_id"];
 
-    $query = "FROM".TABLE_OVERSIGHT_PLAYERS;
-    $query .= " WHERE " ;
-    $query .= " `sender_id` = ".$user_id;
-    $query .= ", `player_id` = ".$player;
+    $query = "FROM" . TABLE_OVERSIGHT_PLAYERS;
+    $query .= " WHERE ";
+    $query .= " `sender_id` = " . $user_id;
+    $query .= ", `player_id` = " . $player;
 
     $db->sql_query($query);
-
 
 
 }

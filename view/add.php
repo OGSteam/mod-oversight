@@ -24,7 +24,7 @@ $px = 100;
             Filtre Status:
         </th>
         <?php foreach ($data["playerStatus"] as $sStatus) : ?>
-            <td width="<?php echo $px; ?>px" class="c Filtre_status" data-status="status_<?php echo $sStatus; ?>">
+            <td width="<?php echo $px; ?>px" class="c Filtre_status" data-status="status_<?php echo strtolower($sStatus); ?>">
                 <?php echo $sStatus; ?>
             </td>
         <?php endforeach; ?>
@@ -50,7 +50,7 @@ $px = 100;
 
     <?php foreach ($data["players"] as $player) : ?>
 
-        <tr class="id_player_<?php echo $player["id_player"]; ?> status_<?php echo $player["status"]; ?>">
+        <tr class="id_player_<?php echo $player["id_player"]; ?> status_<?php echo strtolower($player["status"]); ?>">
             <td class="c">
                 <?php echo $player["name_player"]; ?>
             </td>
