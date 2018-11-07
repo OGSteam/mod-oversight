@@ -13,3 +13,14 @@ function superapixinstalled()
     }
 }
 
+/// arrondir le timestamp (900 => 15 * 60 secondes )
+function roundtimestamp($value , $round = 900)
+{
+    $retour = floor($value / $round) * $round;
+    return  $retour;
+}
+
+
+
+
+

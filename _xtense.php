@@ -7,6 +7,10 @@ if (!defined('IN_SPYOGAME'))
 global $db, $table_prefix, $user, $xtense_version;
 $xtense_version = "2.2";
 
+include_once("mod/oversight/common.php");
+
+
+
 
 // TEST XTENSE2
 if (class_exists("Callback")) {
@@ -31,10 +35,57 @@ if (class_exists("Callback")) {
 
         function oversight($system)
         {
-            global $user, $db, $table_prefix;
-            //dump($system);
-            // echo $system["galaxy"].":".$system["system"];
-          // print_r($system);
+            global $user_data, $db, $table_prefix;
+            $players = getAllSurveillance();
+            $forDebug=array();
+            $forDebug[]= "Oversight Debug";
+            $_gal = $system["galaxy"];
+            $_sys = $system["system"];
+            $row= 1;
+            foreach ($system["data"] as $rowContent)
+            {
+                //print_r($rowContent);
+                if (isset($rowContent["player_id"]) && in_array($rowContent["player_id"],$players)) // todo mettre uniquement ceux recherché
+                {
+                    $forDebug[]= "Insertion de ".$rowContent["player_id"]." =>  ".$rowContent["player_name"];
+                    $datatime = time();
+                    $p_activiy=-1;
+                    switch ($rowContent["activity"]) {
+                        case 0:
+                            $p_activiy = roundtimestamp($datatime - (int)(15 * 60));
+                            break;
+                        case -1:
+                            $p_activiy = -1;
+                            break;
+                        default:
+                            $p_activiy = roundtimestamp($datatime - (int)($rowContent["activity"] * 60));
+                            break;
+                    }
+
+                    $m_activiy=-1;
+                    switch ($rowContent["activityMoon"]) {
+                        case 0:
+                            $m_activiy = roundtimestamp($datatime - (int)(15 * 60));
+                            break;
+                        case -1:
+                            $m_activiy = -1;
+                            break;
+                        default:
+                            $m_activiy = roundtimestamp($datatime - (int)($rowContent["activityMoon"] * 60));
+                            break;
+                    }
+
+                    $query = " REPLACE INTO  ".TABLE_OVERSIGHT ;
+                    $query .= "  (coord, datatime, p_activiy_value,p_activiy,   m_activiy_value, m_activiy, cdr,sender_id, player_id) ";
+                    $query .= " VALUES ('".$_gal.":".$_sys.":".$row."', '".$datatime."', '".$rowContent["activity"]."', '".$p_activiy."' ,'".$rowContent["activityMoon"]."','".$m_activiy."' , '".($rowContent["debris"]["metal"] + $rowContent["debris"]["cristal"] )."', '".$user_data["user_id"]."','".$rowContent["player_id"]."');" ;
+
+                    $db->sql_query($query);
+
+                }
+
+                $row++;
+            }
+            print_r($forDebug);
             return true;
         }
 
