@@ -82,7 +82,7 @@ function getListSurveillance()
 }
 
 
-//met e surveillance un joueur
+//mete surveillance un joueur
 function addSurveillance($player)
 {
     global $db, $user_data;
@@ -112,4 +112,48 @@ function delSurveillance($player)
     $db->sql_query($query);
 
 
+}
+
+
+
+
+function getALLInsert($player_id)
+{
+    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " WHERE   `player_id` =".$player_id;
+    return get_Insert($query);
+}
+
+function getMyInsert($player_id)
+{
+    global  $user_data;
+    $user_id = $user_data["user_id"];
+    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " WHERE  `sender_id`=" . $user_id ." AND `player_id` =".$player_id;
+    return get_Insert($query);
+}
+
+//met e surveillance un joueur
+function get_Insert($query)
+{
+    global $db;
+
+    $result = $db->sql_query($query);
+    $tRetour = array();
+
+    while ($tStatus = $db->sql_fetch_row($result)) {
+        $tRow = array();
+        $tRow["id"] = $tStatus["id"];
+        $tRow["coord"] = $tStatus["coord"];
+        $tRow["datatime"] = $tStatus["datatime"];
+        $tRow["p_activiy_value"] = $tStatus["p_activiy_value"];
+        $tRow["p_activiy"] = $tStatus["p_activiy"];
+        $tRow["m_activiy_value"] = $tStatus["m_activiy_value"];
+        $tRow["m_activiy"] = $tStatus["m_activiy"];
+        $tRow["cdr"] = $tStatus["cdr"];
+        $tRow["sender_id"] = $tStatus["sender_id"];
+        $tRow["player_id"] = $tStatus["player_id"];
+        $tRetour[] = $tRow;
+
+
+    }
+    return $tRetour;
 }

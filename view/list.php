@@ -1,6 +1,6 @@
 <?php
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
-<h2> Liste des surveillance en cours</h2>
+<h2> Liste des surveillances en cours</h2>
 
 <table>
     <thead>
@@ -29,7 +29,7 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
                  <?php echo implode(", ",($surveillance)); ?>
             </td>
             <td class="c">
-                <a>
+                <a href="index.php?action=oversight&page=insert&player_id=<?php echo $key; ?>">
                     Voir
                 </a>
             </td>

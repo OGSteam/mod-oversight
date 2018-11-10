@@ -22,5 +22,22 @@ function roundtimestamp($value , $round = 900)
 
 
 
+function myFormatTime($timestamp)
+{
+    if ($timestamp ==-1)
+    {
+        return "";
+    }
+    return date("Y-m-d H:i:s",$timestamp);
 
+}
+function myFormatPActiviy($value)
+{
+    if ($value ==-1)
+    {
+        return "";
+    }
+    return $value;
+
+}
 
