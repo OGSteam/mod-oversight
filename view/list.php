@@ -1,5 +1,5 @@
 <?php
-if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
+if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
 <h2> Liste des surveillances en cours</h2>
 
 <table>
@@ -12,10 +12,13 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
             Membre de l'alliance surveillant
         </th>
         <th>
-            Exploitation
+            Liste
         </th>
         <th>
             Traitement
+        </th>
+        <th>
+
         </th>
     </tr>
     </thead>
@@ -23,10 +26,10 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
     <?php foreach ($data["ListSurveillance"] as $key => $surveillance): ?>
         <tr>
             <td class="c">
-                <?php  echo $data["players"][$key]["name_player"] ;?>
+                <?php echo $data["players"][$key]["name_player"]; ?>
             </td>
             <td class="c">
-                 <?php echo implode(", ",($surveillance)); ?>
+                <?php echo implode(", ", ($surveillance)); ?>
             </td>
             <td class="c">
                 <a href="index.php?action=oversight&page=insert&player_id=<?php echo $key; ?>">
@@ -38,8 +41,13 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");?>
                     Gerer
                 </a>
             </td>
+            <td class="c">
+                <a href="index.php?action=oversight&page=list&remove&player_id=<?php echo $key; ?>">
+                    Supprimer
+                </a>
+            </td>
         </tr>
-    <?php endforeach ; ?>
+    <?php endforeach; ?>
 
     </tbody>
-    </table>
+</table>

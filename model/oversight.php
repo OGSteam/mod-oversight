@@ -104,10 +104,11 @@ function delSurveillance($player)
     global $db, $user_data;
     $user_id = $user_data["user_id"];
 
-    $query = "FROM" . TABLE_OVERSIGHT_PLAYERS;
+    $query .= "DELETE ";
+    $query .= "FROM " . TABLE_OVERSIGHT_PLAYERS;
     $query .= " WHERE ";
     $query .= " `sender_id` = " . $user_id;
-    $query .= ", `player_id` = " . $player;
+    $query .= " AND `player_id` = " . $player;
 
     $db->sql_query($query);
 
@@ -119,7 +120,13 @@ function delSurveillance($player)
 
 function getALLInsert($player_id)
 {
-    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " WHERE   `player_id` =".$player_id;
+    $player = "";
+    if ($player_id!=0)
+    {
+        $player=  "  WHERE   `player_id` =".$player_id;
+    }
+
+    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " ".$player;
     return get_Insert($query);
 }
 
@@ -127,7 +134,13 @@ function getMyInsert($player_id)
 {
     global  $user_data;
     $user_id = $user_data["user_id"];
-    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " WHERE  `sender_id`=" . $user_id ." AND `player_id` =".$player_id;
+
+    $player = " WHERE  `sender_id`=" . $user_id ." ";
+    if ($player_id!=0)
+    {
+        $player .=  " AND `player_id` =".$player_id;
+    }
+    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " ".$player;
     return get_Insert($query);
 }
 

@@ -55,6 +55,11 @@ switch ($pub_page) {
         break;
     case "list":
         //-------Logique-----------
+        if (isset($pub_remove)&&isset($pub_player_id))
+        {
+            delSurveillance($pub_player_id);
+            $data["msg"][] = "Suppression de la surveillance";
+        }
         $data["menuactif"] = "list";
         $data["ListSurveillance"] = getListSurveillance();
         //-------------------------
