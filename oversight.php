@@ -33,6 +33,7 @@ switch ($pub_page) {
     case "insert":
         //-------Logique-----------
         $data["menuactif"] = "insert";
+        $data["getListOgspyUsers"]=getListOgspyUsers();
         $data["player_id"] = (int)$pub_player_id;
         if (isset($pub_all))
         {
@@ -43,7 +44,6 @@ switch ($pub_page) {
             $data["insert"] = getMyInsert($data["player_id"]);
         }
         $data["ListSurveillance"] = getListSurveillance();
-
         //-------------------------
 
         //-------Appel Vue---------

@@ -26,32 +26,24 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
                 coord
             </th>
             <th>
-                datatime
+                Date
             </th>
-            <th>
-                p_activiy_value
+            <th colspan="2">
+                Activité Planete
             </th>
-            <th>
-                p_activiy
-            </th>
-            <th>
-                m_activiy_value
-            </th>
-            <th>
-                m_activiy
+            <th colspan="2">
+                Activité Lune
             </th>
             <th>
                 cdr
             </th>
             <th>
-                sender_id
+                Envoyé par
             </th>
-            <th>
-                player_id
+            <th colspan="2">
+                Joueur
             </th>
-            <th>
 
-            </th>
         </tr>
         </thead>
         <tbody>
@@ -79,13 +71,13 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
                     <?php echo $insert["cdr"]; ?>
                 </td>
                 <td class="c">
-                    <?php echo $insert["sender_id"]; ?>
+                    <?php echo $data["getListOgspyUsers"][$insert["sender_id"]]; ?>
                 </td>
                 <td class="c">
                     <?php echo $insert["player_id"]; ?>
                 </td>
                 <td class="c">
-
+                    <?php echo $data["players"][$insert["player_id"]]["name_player"] ; ?>
                 </td>
 
             </tr>

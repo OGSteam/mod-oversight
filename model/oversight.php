@@ -78,7 +78,18 @@ function getListSurveillance()
         }
     }
     return $tRetour;
+}
 
+function getListOgspyUsers()
+{
+    global $db;
+    $result = $db->sql_query("SELECT user_id , user_name  FROM  " . TABLE_USER  . "    ");
+    $tRetour = array();
+
+    while ($tStatus = $db->sql_fetch_row($result)) {
+        $tRetour[$tStatus["user_id"]] = $tStatus["user_name"];
+    }
+    return $tRetour;
 }
 
 
