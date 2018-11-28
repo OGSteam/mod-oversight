@@ -155,7 +155,7 @@ function getMyInsert($player_id)
     return get_Insert($query);
 }
 
-//met e surveillance un joueur
+
 function get_Insert($query)
 {
     global $db;
@@ -176,8 +176,21 @@ function get_Insert($query)
         $tRow["sender_id"] = $tStatus["sender_id"];
         $tRow["player_id"] = $tStatus["player_id"];
         $tRetour[] = $tRow;
-
-
     }
     return $tRetour;
 }
+
+
+function get_DisctinctCoord($player_id)
+{
+    global $db;
+    $query = "SELECT distinct(coord) FROM " . TABLE_OVERSIGHT . "  WHERE `player_id` =".$player_id;
+    $result = $db->sql_query($query);
+    $tRetour = array();
+
+    while ($tStatus = $db->sql_fetch_row($result)) {
+        $tRetour[]= $tStatus["coord"];
+    }
+    return $tRetour;
+}
+

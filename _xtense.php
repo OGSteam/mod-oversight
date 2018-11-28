@@ -49,13 +49,15 @@ if (class_exists("Callback")) {
                 {
                     $forDebug[]= "Insertion de ".$rowContent["player_id"]." =>  ".$rowContent["player_name"];
                     $datatime = time();
+                    $fomatDatetime = (int)roundtimestamp($datatime );
+
                     $p_activiy=-1;
                     switch ($rowContent["activity"]) {
                         case 0:
                             $p_activiy = roundtimestamp($datatime - (int)(15 * 60));
                             break;
                         case -1:
-                            $p_activiy = -1;
+                            $p_activiy = $fomatDatetime;
                             break;
                         default:
                             $p_activiy = roundtimestamp($datatime - (int)($rowContent["activity"] * 60));
@@ -68,7 +70,7 @@ if (class_exists("Callback")) {
                             $m_activiy = roundtimestamp($datatime - (int)(15 * 60));
                             break;
                         case -1:
-                            $m_activiy = -1;
+                            $m_activiy = $fomatDatetime;
                             break;
                         default:
                             $m_activiy = roundtimestamp($datatime - (int)($rowContent["activityMoon"] * 60));
@@ -77,10 +79,10 @@ if (class_exists("Callback")) {
 
                     $query = " REPLACE INTO  ".TABLE_OVERSIGHT ;
                     $query .= "  (coord, datatime, p_activiy_value,p_activiy,   m_activiy_value, m_activiy, cdr,sender_id, player_id) ";
-                    $query .= " VALUES ('".$_gal.":".$_sys.":".$row."', '".$datatime."', '".$rowContent["activity"]."', '".$p_activiy."' ,'".$rowContent["activityMoon"]."','".$m_activiy."' , '".($rowContent["debris"]["metal"] + $rowContent["debris"]["cristal"] )."', '".$user_data["user_id"]."','".$rowContent["player_id"]."');" ;
+                    $query .= " VALUES ('".$_gal.":".$_sys.":".$row."', '".(int)roundtimestamp($datatime )."', '".$rowContent["activity"]."', '".$p_activiy."' ,'".$rowContent["activityMoon"]."','".$m_activiy."' , '".($rowContent["debris"]["metal"] + $rowContent["debris"]["cristal"] )."', '".$user_data["user_id"]."','".$rowContent["player_id"]."');" ;
 
                     $db->sql_query($query);
-
+                    $forDebug[]=$query;
                 }
 
                 $row++;

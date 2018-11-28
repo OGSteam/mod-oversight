@@ -23,7 +23,7 @@ if (!superapixinstalled()) {
 }
 
 //liste des pages autorisées
-$allowedPages = array("list", "insert","add","stat");
+$allowedPages = array("list", "insert","add","stat","analyse");
 if (!in_array($pub_page, $allowedPages)) {
     $pub_page = "list";
 }
@@ -100,6 +100,18 @@ switch ($pub_page) {
         include_once(FOLDER_VIEW . "header.php");
         include_once(FOLDER_VIEW . "menu.php");
         include_once(FOLDER_VIEW . "stat.php");
+        include_once(FOLDER_VIEW . "footer.php");
+        //-------------------------
+        break;
+    case  "analyse":
+        //-------Logique-----------
+        $data["menuactif"] = "analyse";
+        //-------------------------
+
+        //-------Appel Vue---------
+        include_once(FOLDER_VIEW . "header.php");
+        include_once(FOLDER_VIEW . "menu.php");
+        include_once(FOLDER_VIEW . "analyse.php");
         include_once(FOLDER_VIEW . "footer.php");
         //-------------------------
         break;

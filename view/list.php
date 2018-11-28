@@ -38,7 +38,9 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
             </td>
             <td class="c">
                 <a>
-                    Gerer
+                    <a href="index.php?action=oversight&page=analyse&player_id=<?php echo $key; ?>">
+                        Gerer
+                    </a>
                 </a>
             </td>
             <td class="c">
