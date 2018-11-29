@@ -1,0 +1,15 @@
+body {
+}
+
+
+h2 {
+
+}
+
+
+.someclass { color: red; }
+
+/* Applies to the element with <... id="someid"> specified. */
+#someid { color: green; }
+
+

@@ -106,9 +106,11 @@ switch ($pub_page) {
     case  "analyse":
         //-------Logique-----------
         $data["menuactif"] = "analyse";
+        $data["player_id"] = (int)$pub_player_id;
+        $data["cssfile"] = FOLDER_CSS . "jscss.css";
         //-------------------------
 
-        //-------Appel Vue---------
+       //-------Appel Vue---------
         include_once(FOLDER_VIEW . "header.php");
         include_once(FOLDER_VIEW . "menu.php");
         include_once(FOLDER_VIEW . "analyse.php");
