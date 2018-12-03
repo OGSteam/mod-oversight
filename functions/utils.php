@@ -71,7 +71,7 @@ function myFormatPActiviy($value)
 function formatMyInsert($tInsert, $tCoord)
 {
     $retour = array();
-    $arrayTab = array("P" => 0, "M" => 0, "cdr" => 0);
+    $arrayTab = array("P" => -1, "M" => -1, "cdr" => '');
     foreach ($tInsert as $insert) {
 
 
@@ -85,10 +85,14 @@ function formatMyInsert($tInsert, $tCoord)
             $retour[$insert["datetime"]][$insert["coord"]] = $arrayTab;
         }
 
-        if ($insert["m_activiy"] >= 0) {
+
+
+
+
+        if ($insert["m_activiy_value"] >= 0) {
             $retour[$insert["m_activiy"]][$insert["coord"]]["M"] = 1;
         }
-        if ($insert["p_activiy"] >= 0) {
+        if ($insert["p_activiy_value"] >= 0) {
             $retour[$insert["p_activiy"]][$insert["coord"]]["P"] = 1;
         }
         if ($insert["datatime"] >= 0) {
@@ -114,107 +118,112 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
     $tmstampTomorrow = $tmstampToday + 86400;
     $tmstampTodaystr = strftime("%A %d %B", $tmstampToday);
     $step = 15 * 60;
+    $totalcdr='';
     ?>
 
 
     <thead>
     <tr>
-        <th colspan="<?php echo 3 + 3 + ($CoordCount * 3); ?>">
+        <td colspan="<?php echo 3 + 3 + ($CoordCount * 3); ?>" class="fullDate">
             <?php echo myFormatTimeQuick($tmstampToday); ?>
-        </th>
+        </td>
     </tr>
-    <tr>
-        <th>
+    <tr class="tdhead">
+        <td>
             coordonnées
-        </th>
-        <th>
+        </td>
+        <td>
             heure
-        </th>
-        <th>
+        </td>
+        <td>
             Tranche
-        </th>
+        </td>
         <?php foreach ($tCoord as $coord) : ?>
-            <th colspan="3">
+            <td colspan="3">
                 <?php echo $coord; ?>
-            </th>
+            </td>
         <?php endforeach; ?>
-        <th colspan="3">
+        <td colspan="3">
 
             Total
-        </th>
+        </td>
 
     </tr>
 
-    <tr>
-        <th>
+    <tr class="tdhead">
+        <td>
             Type
-        </th>
-        <th>
+        </td>
+        <td>
 
-        </th>
-        <th>
+        </td>
+        <td>
 
-        </th>
+        </td>
         <?php foreach ($tCoord as $coord) : ?>
-            <th>
+            <td>
                 P
-            </th>
-            <th>
+            </td>
+            <td>
                 L
-            </th>
-            <th>
+            </td>
+            <td>
                 CDR
-            </th>
+            </td>
         <?php endforeach; ?>
-        <th>
+        <td>
             Total P
-        </th>
-        <th>
+        </td>
+        <td>
             Total L
-        </th>
-        <th>
+        </td>
+        <td>
             Total CDR
-        </th>
+        </td>
     </tr>
 
     </thead>
     <tbody>
     <?php for ($i = $tmstampToday; $i <= $tmstampTomorrow - 1; $i = $i + $step) : ?>
         <?php if (isset($tInsert[$i])) : ?>
+            <?php $totalcdr='';?>
             <tr>
                 <td>
                     <?php echo $tmstampTodaystr ?>
                 </td>
-                <td>
+                <td class="tdtime">
                     <?php echo myFormatTimeGetHours($i); ?>
                 </td>
-                <td>
+                <td  class="tdtime">
                     <?php echo myFormatTimeGetMS($i); ?>
                 </td>
                 <?php foreach ($tCoord as $coord) : ?>
-                    <th>
+                    <td  class="tdinfo value<?php echo $tInsert[$i][$coord]["P"]; ?>">
 
                         <?php echo $tInsert[$i][$coord]["P"]; ?>
 
-                    </th>
-                    <th>
+                    </td>
+                    <td class="tdinfo value<?php echo $tInsert[$i][$coord]["M"]; ?>">
 
                         <?php echo $tInsert[$i][$coord]["M"]; ?>
 
-                    </th>
-                    <th>
+                    </td>
+                    <td class="tdinfo tdcdr tdcdr_<?php echo $tInsert[$i][$coord]["cdr"]; ?>">
                         <?php echo $tInsert[$i][$coord]["cdr"]; ?>
-                    </th>
+                        <?php if (is_numeric($tInsert[$i][$coord]["cdr"])) : ?>
+                            <?php $totalcdr=$tInsert[$i][$coord]["cdr"] + (int)$totalcdr;?>
+                        <?php endif ; ?>
+                    </td>
                 <?php endforeach; ?>
-                <th>
+                <td class="tdtotal">
                     Total 1
-                </th>
-                <th>
+                </td>
+                <td class="tdtotal">
                     Total 2
-                </th>
-                <th>
-                    Total 3
-                </th>
+                </td>
+                <td class="tdtotal">
+                    <?php echo $totalcdr ; ?>
+                </td>
             </tr>
         <?php endif; ?>
 

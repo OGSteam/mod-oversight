@@ -2,14 +2,96 @@ body {
 }
 
 
-h2 {
-
+table.oversight{
+    border-spacing:0; /* Removes the cell spacing via CSS */
+    border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
 }
 
 
-.someclass { color: red; }
 
-/* Applies to the element with <... id="someid"> specified. */
-#someid { color: green; }
+
+table.oversight td
+{
+    background: none;
+    background-color: lightgrey;
+    border: none;
+    padding:0px;
+    color: black;
+}
+table.oversight tr
+{
+    background: none;
+    background-color: transparent;
+    border: none;
+    padding:0px;
+    border-width: 1px;
+    border-color: Black;
+}
+
+
+table.oversight td.fullDate {
+    color: #BCC1C7;
+    background: none;
+    background-color: darkslategrey;
+    border-style: solid;
+    border-width: 1px;
+    border-color: Black;
+    /* background: none*/;
+}
+
+table.oversight td.tdtime {
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: Black;
+}
+
+table.oversight td.tdtotal {
+    text-align: center;
+    border-style: solid;
+    border-bottom: 1px;
+    border-color: Black;
+    background-color: lightsteelblue;
+}
+table.oversight td.tdinfo {
+    text-align: center;
+    border-bottom: 1px solid black;
+    color: lightgrey;
+
+}
+table.oversight td.value1 {
+    background-color: green;
+    color: green;
+}
+
+table.oversight td.tdcdr {
+    text-align: center;
+    border-right: 1px solid red;
+    color: black;
+}
+table.oversight td.tdcdr_ {
+    background-color:#423b3b;
+}
+
+table.oversight td.value {
+    background-color: #423b3b;
+}
+
+
+table.oversight tr.tdhead td {
+    color: darkslategray;
+    background: none;
+    background-color: grey;
+    border-style: solid;
+    border-width: 1px;
+    border-color: Black;
+    text-align: center;
+    /* background: none*/;
+}
+
+
+
+
+
 
 
