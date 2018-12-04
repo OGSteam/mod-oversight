@@ -119,6 +119,7 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
     $tmstampTodaystr = strftime("%A %d %B", $tmstampToday);
     $step = 15 * 60;
     $totalcdr='';
+    $totalpresence='';
     ?>
 
 
@@ -172,13 +173,10 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
             </td>
         <?php endforeach; ?>
         <td>
-            Total P
+           Présence
         </td>
         <td>
-            Total L
-        </td>
-        <td>
-            Total CDR
+           CDR
         </td>
     </tr>
 
@@ -187,6 +185,7 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
     <?php for ($i = $tmstampToday; $i <= $tmstampTomorrow - 1; $i = $i + $step) : ?>
         <?php if (isset($tInsert[$i])) : ?>
             <?php $totalcdr='';?>
+            <?php $totalpresence='';?>
             <tr>
                 <td>
                     <?php echo $tmstampTodaystr ?>
@@ -201,11 +200,13 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
                     <td  class="tdinfo value<?php echo $tInsert[$i][$coord]["P"]; ?>">
 
                         <?php echo $tInsert[$i][$coord]["P"]; ?>
+                       <?php $totalpresence = ($tInsert[$i][$coord]["P"] == 1) ? 1 : $totalpresence;;?>
 
                     </td>
                     <td class="tdinfo value<?php echo $tInsert[$i][$coord]["M"]; ?>">
 
                         <?php echo $tInsert[$i][$coord]["M"]; ?>
+                        <?php $totalpresence = ($tInsert[$i][$coord]["M"] == 1) ? 1 : $totalpresence;;?>
 
                     </td>
                     <td class="tdinfo tdcdr tdcdr_<?php echo $tInsert[$i][$coord]["cdr"]; ?>">
@@ -215,11 +216,8 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
                         <?php endif ; ?>
                     </td>
                 <?php endforeach; ?>
-                <td class="tdtotal">
-                    Total 1
-                </td>
-                <td class="tdtotal">
-                    Total 2
+                <td class="tdtotal<?php echo $totalpresence ; ?>">
+                    <?php echo $totalpresence ; ?>
                 </td>
                 <td class="tdtotal">
                     <?php echo $totalcdr ; ?>

@@ -8,7 +8,9 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 todo <br />
 liste joueur suivi + nb <br />
 liste joueur suivant + nb <br />
+vision analyse pour toutes l'alliance <br />
 compte entrée orpheline + suppression  <br /> <br />
+
 ------------- <br />
 admin <br />
 suppression au bout de x nb ou au bout de d date <br />

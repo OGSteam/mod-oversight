@@ -53,6 +53,15 @@ table.oversight td.tdtotal {
     border-color: Black;
     background-color: lightsteelblue;
 }
+table.oversight td.tdtotal1 {
+    border-style: solid;
+    border-bottom: 1px;
+    border-color: Black;
+    background-color: green;
+    color:green;
+}
+
+
 table.oversight td.tdinfo {
     text-align: center;
     border-bottom: 1px solid black;
