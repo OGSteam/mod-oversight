@@ -108,6 +108,14 @@ switch ($pub_page) {
         $data["menuactif"] = "analyse";
         $data["player_id"] = (int)$pub_player_id;
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
+        if (isset($pub_all))
+        {
+            $data["insert"] = getALLInsert($data["player_id"]);
+        }
+        else
+        {
+            $data["insert"] = getMyInsert($data["player_id"]);
+        }
         //-------------------------
 
        //-------Appel Vue---------
