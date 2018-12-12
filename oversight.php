@@ -94,6 +94,14 @@ switch ($pub_page) {
     case  "stat":
         //-------Logique-----------
         $data["menuactif"] = "stat";
+        if (isset($pub_purge))
+        {
+            purgeInsertOrphan();
+        }
+        $data["CountALLInsert"] = getCountALLInsert();
+        $data["total_player"] = get_DisctinctPlayerId();
+        $data["total_sender"] = get_DisctinctSenderId();
+        $data["total_orphan"] = get_Orphan();
         //-------------------------
 
         //-------Appel Vue---------

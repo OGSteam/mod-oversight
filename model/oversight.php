@@ -127,6 +127,16 @@ function delSurveillance($player)
 }
 
 
+function getCountALLInsert()
+{
+    global $db;
+    $query = "SELECT count(*) as nbtotal FROM " . TABLE_OVERSIGHT . "";
+    $result = $db->sql_query($query);
+    return $db->sql_fetch_row($result)["nbtotal"];
+
+
+}
+
 
 
 function getALLInsert($player_id)
@@ -192,5 +202,43 @@ function get_DisctinctCoord($player_id)
         $tRetour[]= $tStatus["coord"];
     }
     return $tRetour;
+}
+
+
+function get_DisctinctPlayerId()
+{
+    global $db;
+    $query = "SELECT count(distinct(player_id)) as total_player FROM " . TABLE_OVERSIGHT_PLAYERS . " ";
+    $result = $db->sql_query($query);
+    $tRetour =  $db->sql_fetch_row($result);
+    return $tRetour["total_player"];
+}
+
+function get_DisctinctSenderId()
+{
+    global $db;
+    $query = "SELECT count(distinct(sender_id))  as total_sender FROM " . TABLE_OVERSIGHT_PLAYERS . " ";
+    $result = $db->sql_query($query);
+    $tRetour =  $db->sql_fetch_row($result);
+    return $tRetour["total_sender"];
+}
+
+function get_Orphan()
+{
+    global $db;
+    $query = "SELECT  count(player_id) as total_orphan FROM " . TABLE_OVERSIGHT . " ";
+    $query .= " WHERE player_id NOT IN (select player_id as pid from   " . TABLE_OVERSIGHT_PLAYERS . "  )";
+    $result = $db->sql_query($query);
+    $tRetour =  $db->sql_fetch_row($result);
+    return $tRetour["total_orphan"];
+}
+
+function purgeInsertOrphan()
+{
+    global $db;
+    $query = "delete FROM " . TABLE_OVERSIGHT . " ";
+    $query .= " WHERE player_id NOT IN (select player_id as pid from   " . TABLE_OVERSIGHT_PLAYERS . "  )";
+    $db->sql_query($query);
+
 }
 

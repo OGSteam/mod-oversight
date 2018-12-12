@@ -2,16 +2,39 @@
 if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 
 ?>
+<h2> Configuration </h2>
+
+<table width="100%">
+    <thead>
+    <tr>
+        <td class="c_stats" width="25%">Configuration</td>
+        <td class="c" width="25%">Valeur</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th><a>Nombre d'utilisateur</a></th>
+        <th><?php echo $data["total_sender"]; ?></th>
+    </tr>
+    <tr>
+        <th><a>Nombre de joueur surveiller</a></th>
+        <th><?php echo $data["total_player"]; ?></th>
+    </tr>
+    <tr>
+        <th><a>Nombre de scanne </a></th>
+        <th><?php echo $data["CountALLInsert"]; ?></th>
+    </tr>
+    <tr>
+        <th><a>Entrées orphelines</a></th>
+        <th><?php echo $data["total_orphan"]; ?></th>
+    </tr>
+
+    <tr>
+        <th></th>
+        <th><a href="index.php?action=oversight&page=stat&purge">Purger</a></th>
+    </tr>
+    </tbody>
+</table>
 
 
-<h2> Non implemnté encore</h2>
-todo <br />
-liste joueur suivi + nb <br />
-liste joueur suivant + nb <br />
-vision analyse pour toutes l'alliance <br />
-compte entrée orpheline + suppression  <br /> <br />
-
-------------- <br />
-admin <br />
-suppression au bout de x nb ou au bout de d date <br />
 
