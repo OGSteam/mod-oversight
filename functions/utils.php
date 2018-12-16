@@ -1,7 +1,6 @@
 <?php
 if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 
-
 function superapixinstalled()
 {
     global $db;
@@ -35,7 +34,8 @@ function myFormatTimeQuick($timestamp)
     if ($timestamp == -1) {
         return "";
     }
-    setlocale(LC_TIME, "fr");
+    setlocale(LC_ALL, 'fr_FR.UTF-8');//utf8
+
     return strftime("%A %d %B %Y", $timestamp);
 
 
@@ -116,6 +116,9 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
     ob_start(); //capture
     $CoordCount = count($tCoord);
     $tmstampTomorrow = $tmstampToday + 86400;
+
+    setlocale(LC_ALL, 'fr_FR.UTF-8');//utf8
+
     $tmstampTodaystr = strftime("%A %d %B", $tmstampToday);
     $step = 15 * 60;
     $totalcdr='';
