@@ -4,6 +4,7 @@ global $data;
 $px = 100;
 
 ?>
+<link href="<?php echo $data['cssfile']; ?>" rel="stylesheet" type="text/css" media="all">
 
 <h2> AJOUT</h2>
 
@@ -31,6 +32,26 @@ $px = 100;
     </tr>
     </thead>
 </table>
+<table class="findingplayer">
+    <thead>
+    <form action="#"" method="post">
+    <tr>
+            <td class="c">
+                Recherche :
+            </td>
+            <td>
+                Nom
+            </td>
+            <td>
+                <input type="text" value="<?php echo $data["lastfind"]; ?>" name="findplayer" />
+            </td>
+            <td>
+                <p><input type="submit" value="Rechercher"></p>
+            </td>
+        </tr>
+    </form>
+    </thead>
+</table>
 
 <br/>
 <table>
@@ -47,7 +68,6 @@ $px = 100;
         </th>
     </tr>
     </thead>
-
     <?php foreach ($data["players"] as $player) : ?>
 
         <tr class="id_player_<?php echo $player["id_player"]; ?> status_<?php echo strtolower($player["status"]); ?>">

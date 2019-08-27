@@ -95,8 +95,16 @@ table.oversight tr.tdhead td {
     border-width: 1px;
     border-color: Black;
     text-align: center;
-    /* background: none*/;
+    /* background: none*/
+
 }
+
+table.findingplayer {
+        background-color: rgba(114,114,114,0.8);
+        border-color: red;
+        border-style: solid;
+        border-width: 1px;
+    }
 
 
 

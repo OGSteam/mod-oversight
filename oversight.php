@@ -12,8 +12,6 @@ $data["menu"][] = array("nom" => "Mise en surveillance", "url" => "add");
 $data["menu"][] = array("nom" => "Insertions", "url" => "insert");
 $data["menu"][] = array("nom" => "Stat", "url" => "stat");
 
-//datas communes
-$data["players"] = getPlayer();
 
 //Message avertissements
 $data["msg"] = array();
@@ -36,6 +34,7 @@ if (!in_array($pub_page, $allowedPages)) {
 
 switch ($pub_page) {
     case "insert":
+        $data["players"] = getPlayer();
         //-------Logique-----------
         $data["menuactif"] = "insert";
         $data["getListOgspyUsers"]=getListOgspyUsers();
@@ -59,6 +58,8 @@ switch ($pub_page) {
         //-------------------------
         break;
     case "list":
+        //datas communes
+        $data["players"] = getPlayer();
         //-------Logique-----------
         if (isset($pub_remove)&&isset($pub_player_id))
         {
@@ -77,11 +78,15 @@ switch ($pub_page) {
         //-------------------------
         break;
     case  "add":
+        //datas communes
+        $data["players"] = (isset($pub_findplayer))    ? getPlayer($db->sql_escape_string($pub_findplayer))  : array();
+        $data["lastfind"] = (isset($pub_findplayer))    ? $db->sql_escape_string($pub_findplayer)  : "";
         //-------Logique-----------
         if (isset($pub_id)) {
             addSurveillance((int)$pub_id);
             $data["msg"][] = "Joueur " . $data["players"][(int)$pub_id]["name_player"] . " ajouté";
         }
+        $data["cssfile"] = FOLDER_CSS . "jscss.css";
         $data["mySurveillance"] = getMySurveillance();
         array_push($data["mySurveillance"], "0"); // player 0 ... :/ ne pas mettre en surveillance
         $data["menuactif"] = "add";
@@ -97,6 +102,8 @@ switch ($pub_page) {
         //-------------------------
         break;
     case  "stat":
+        //datas communes
+        $data["players"] = getPlayer();
         //-------Logique-----------
         $data["menuactif"] = "stat";
         if (isset($pub_purge))
@@ -117,6 +124,8 @@ switch ($pub_page) {
         //-------------------------
         break;
     case  "analyse":
+        //datas communes
+        $data["players"] = getPlayer();
         //-------Logique-----------
         $data["menuactif"] = "analyse";
         $data["player_id"] = (int)$pub_player_id;

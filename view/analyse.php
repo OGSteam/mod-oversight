@@ -11,6 +11,7 @@ setlocale(LC_TIME, "fr");
 
 $tCoord = get_DisctinctCoord($data["player_id"]);
 sort($tCoord);
+
 //$CoordCount = count($tCoord);
 $insterts = $data["insert"];
 //$insterts = getMyInsert($playerId);

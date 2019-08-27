@@ -4,10 +4,20 @@ if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 
 
 //retourne la liste des joueur id/nom
-function getPlayer()
+function getPlayer($defaultname="")
 {
     global $db;
-    $result = $db->sql_query("SELECT id_player, name_player , 	status FROM " . TABLE_SPA_PLAYERS . " order by name_player ASC");
+    $query="SELECT id_player, name_player ,	status";
+    $query.=" FROM " . TABLE_SPA_PLAYERS . " ";
+    if ($defaultname!="")
+    {
+        $query.="WHERE  name_player like '%".$db->sql_escape_string($defaultname)."%' ";
+    }
+    $query.=" order by name_player ASC";
+
+
+
+    $result = $db->sql_query($query);
     $Tretour = array();
 
     while ($tPlayer = $db->sql_fetch_row($result)) {
