@@ -74,19 +74,15 @@ function formatMyInsert($tInsert, $tCoord)
     $arrayTab = array("P" => -1, "M" => -1, "cdr" => '');
     foreach ($tInsert as $insert) {
 
-
         if (!isset($retour[$insert["p_activiy"]])) {
             $retour[$insert["p_activiy"]][$insert["coord"]] = $arrayTab;
         }
         if (!isset($retour[$insert["m_activiy"]])) {
             $retour[$insert["m_activiy"]][$insert["coord"]] = $arrayTab;
         }
-        if (!isset($retour[$insert["datetime"]])) {
-            $retour[$insert["datetime"]][$insert["coord"]] = $arrayTab;
+        if (!isset($retour[$insert["datatime"]])) {
+            $retour[$insert["datatime"]][$insert["coord"]] = $arrayTab;
         }
-
-
-
 
 
         if ($insert["m_activiy_value"] >= 0) {
@@ -98,7 +94,6 @@ function formatMyInsert($tInsert, $tCoord)
         if ($insert["datatime"] >= 0) {
             $retour[$insert["datatime"]][$insert["coord"]]["cdr"] = $insert["cdr"];
         }
-
 
         //$retour[$insert["m_activiy"]][$insert["coord"]]["M"]=1;
         //$retour[$insert["p_activiy"]][$insert["coord"]]["P"]=1;
@@ -112,6 +107,7 @@ function formatMyInsert($tInsert, $tCoord)
 
 function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
 {
+
     $HTMLReturn = "";
     ob_start(); //capture
     $CoordCount = count($tCoord);
@@ -186,7 +182,8 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
     </thead>
     <tbody>
     <?php for ($i = $tmstampToday; $i <= $tmstampTomorrow - 1; $i = $i + $step) : ?>
-        <?php if (isset($tInsert[$i])) : ?>
+            <?php if (isset($tInsert[$i])) : ?>
+
             <?php $totalcdr='';?>
             <?php $totalpresence='';?>
             <tr>
@@ -200,18 +197,20 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
                     <?php echo myFormatTimeGetMS($i); ?>
                 </td>
                 <?php foreach ($tCoord as $coord) : ?>
-                    <td  class="tdinfo value<?php echo $tInsert[$i][$coord]["P"]; ?>">
 
+                    <?php $tInsert[$i][$coord]["P"]    = (isset($tInsert[$i][$coord]["P"]))       ? $tInsert[$i][$coord]["P"]     : "";?>
+                    <td  class="tdinfo value<?php echo $tInsert[$i][$coord]["P"]; ?>">
                         <?php echo $tInsert[$i][$coord]["P"]; ?>
                        <?php $totalpresence = ($tInsert[$i][$coord]["P"] == 1) ? 1 : $totalpresence;;?>
 
                     </td>
+                    <?php $tInsert[$i][$coord]["M"]    = (isset($tInsert[$i][$coord]["M"]))       ? $tInsert[$i][$coord]["M"]     : "";?>
                     <td class="tdinfo value<?php echo $tInsert[$i][$coord]["M"]; ?>">
-
                         <?php echo $tInsert[$i][$coord]["M"]; ?>
                         <?php $totalpresence = ($tInsert[$i][$coord]["M"] == 1) ? 1 : $totalpresence;;?>
 
                     </td>
+                    <?php $tInsert[$i][$coord]["cdr"]    = (isset($tInsert[$i][$coord]["cdr"]))       ? $tInsert[$i][$coord]["cdr"]     : "";?>
                     <td class="tdinfo tdcdr tdcdr_<?php echo $tInsert[$i][$coord]["cdr"]; ?>">
                         <?php echo $tInsert[$i][$coord]["cdr"]; ?>
                         <?php if (is_numeric($tInsert[$i][$coord]["cdr"])) : ?>

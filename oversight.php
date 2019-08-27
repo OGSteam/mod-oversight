@@ -23,7 +23,12 @@ if (!superapixinstalled()) {
 }
 
 //liste des pages autorisées
+
 $allowedPages = array("list", "insert","add","stat","analyse");
+if(!isset($pub_page))
+{
+    $pub_page = "list";
+}
 if (!in_array($pub_page, $allowedPages)) {
     $pub_page = "list";
 }
