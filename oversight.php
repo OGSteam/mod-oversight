@@ -38,7 +38,7 @@ switch ($pub_page) {
         //-------Logique-----------
         $data["menuactif"] = "insert";
         $data["getListOgspyUsers"]=getListOgspyUsers();
-        $data["player_id"] = (int)$pub_player_id;
+        $data["player_id"] = (int)$user_data["user_id"];
         if (isset($pub_all))
         {
             $data["insert"] = getALLInsert($data["player_id"]);
