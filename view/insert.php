@@ -1,5 +1,6 @@
 <?php
 if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
+    <?php if ($data["player_id"]!=null) : ?>
     <h2> Liste des insertions <?php echo $data["players"][$data["player_id"]]["name_player"]; ?>
         <?php if (isset($pub_all)) : ?>
             [<?php echo implode(", ",($data["ListSurveillance"][$data["player_id"]])); ?>]
@@ -18,6 +19,17 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
         <?php endif; ?>
 
     </h2>
+    <?php else : ?>
+    <h2>
+        <?php if (isset($pub_all)) : ?>
+            Toutes mes insertions
+        <?php else : ?>
+           Toutes les insertions de l'alliance
+        <?php endif; ?>
+    </h2>
+
+
+    <?php endif; ?>
 
     <table>
         <thead>

@@ -38,15 +38,10 @@ switch ($pub_page) {
         //-------Logique-----------
         $data["menuactif"] = "insert";
         $data["getListOgspyUsers"]=getListOgspyUsers();
-        $data["player_id"] = (int)$user_data["user_id"];
-        if (isset($pub_all))
-        {
-            $data["insert"] = getALLInsert($data["player_id"]);
-        }
-        else
-        {
-            $data["insert"] = getMyInsert($data["player_id"]);
-        }
+        //si null on doit tout montrer ....
+        $data["player_id"] = (isset($data["player_id"]) )   ? (int)$pub_player_id  : null ;
+        $data["insert"] = (isset($pub_all) )   ? getALLInsert($data["player_id"]) : getMyInsert($data["player_id"]) ;
+
         $data["ListSurveillance"] = getListSurveillance();
         //-------------------------
 
