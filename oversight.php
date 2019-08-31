@@ -121,17 +121,22 @@ switch ($pub_page) {
     case  "analyse":
         //datas communes
         $data["players"] = getPlayer();
+        $data["daylist"] = weekdaylist();
+        //si filtre non défini
+        $data["nblastday"] = (isset($pub_nblastday))    ? (int)$pub_nblastday  : 30 ; // par defaut 30 jour
+        $data["findday"] = (isset($pub_findday))    ? (int)$pub_findday  : -1 ; // par defaut 30 jour
+
         //-------Logique-----------
         $data["menuactif"] = "analyse";
         $data["player_id"] = (int)$pub_player_id;
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
         if (isset($pub_all))
         {
-            $data["insert"] = getALLInsert($data["player_id"]);
+            $data["insert"] = getALLInsert($data["player_id"],$data["nblastday"], $data["findday"] );
         }
         else
         {
-            $data["insert"] = getMyInsert($data["player_id"]);
+            $data["insert"] = getMyInsert($data["player_id"],$data["nblastday"], $data["findday"] );
         }
         //-------------------------
 

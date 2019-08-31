@@ -19,6 +19,22 @@ function roundtimestamp($value, $round = 900)
     return $retour;
 }
 
+function weekdaylist()
+{
+    $retour = array();
+    $retour[-1] = 'Auncun';
+
+    $retour[0] = 'Lundi';
+    $retour[1] = 'Mardi';
+    $retour[2] = 'Mercredi';
+    $retour[3] = 'Jeudi';
+    $retour[4] = 'Vendredi';
+    $retour[5] = 'Samedi';
+    $retour[6] = 'Dimanche';
+
+    return $retour;
+}
+
 
 function myFormatTime($timestamp)
 {

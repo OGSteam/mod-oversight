@@ -149,19 +149,30 @@ function getCountALLInsert()
 
 
 
-function getALLInsert($player_id)
+function getALLInsert($player_id,$since, $weekday)
 {
     $player = "";
+    $player.=  "  WHERE   `player_id` > 0 ";
+
     if ($player_id!=0)
     {
-        $player=  "  WHERE   `player_id` =".$player_id;
+        $player.=  "  AND   `player_id` =".$player_id;
+
+    }
+    $player.=  "  AND   `datatime` >  " .(int)(time() - $since * 24*60*60 );
+
+    if ($weekday!=-1)
+    {
+        $player.=  "  AND   WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date))= ".$weekday." ";
+
+
     }
 
-    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " ".$player;
+    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player;
     return get_Insert($query);
 }
 
-function getMyInsert($player_id)
+function getMyInsert($player_id,$since, $weekday)
 {
     global  $user_data;
     $user_id = $user_data["user_id"];
@@ -171,7 +182,16 @@ function getMyInsert($player_id)
     {
         $player .=  " AND `player_id` =".$player_id;
     }
-    $query = "SELECT * FROM " . TABLE_OVERSIGHT . " ".$player;
+    $player.=  "  AND   `datatime` >  " .(int)(time() - $since * 24*60*60 );
+    if ($weekday!=-1)
+    {
+     //   $player.=  "  AND  valeur_date = ".$weekday."  ";
+        $player.=  "  AND   WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date))= ".$weekday." ";
+
+    }
+
+    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player;
+
     return get_Insert($query);
 }
 
@@ -184,6 +204,7 @@ function get_Insert($query)
     $tRetour = array();
 
     while ($tStatus = $db->sql_fetch_row($result)) {
+;
         $tRow = array();
         $tRow["id"] = $tStatus["id"];
         $tRow["coord"] = $tStatus["coord"];

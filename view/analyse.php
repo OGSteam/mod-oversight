@@ -37,6 +37,40 @@ $DisctinctDAte = getDisctinctDAte($insterts);
     <?php endif; ?>
 </h2>
 
+<table class="">
+    <form action="#"  method="post">
+    <tr>
+        <td class="c">
+            Nombre de jour à afficher :
+        </td>
+        <th class="c">
+            <input type="text" value="<?php echo $data["nblastday"]?>" name="nblastday">
+        </th>
+        <th class="c" rowspan="2">
+            <input type="submit" value="Rechercher!">
+        </th>
+    </tr>
+    <tr>
+        <td class="c">
+            Chercher un jour en particulier :
+        </td>
+        <th class="c">
+            <select name="findday">
+                <?php foreach ($data["daylist"] as $index => $day ) : ?>
+                    <option value="<?php echo $index ; ?>"
+                    <?php if ($data["findday"]== $index) { echo " selected" ; }?>>
+                        <?php echo $day ; ?>
+                    </option>
+                <?php endforeach ; ?>
+               </select>
+        </th>
+    </tr>
+    </form>
+</table>
+
+<hr />
+
+
 <table width="100%" class="oversight">
     <?php foreach ($DisctinctDAte as $key => $value) : ?>
         <?php echo getAnalyseHTMLTable($key, $tCoord, $tInsert); ?>
