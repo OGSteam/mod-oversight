@@ -149,7 +149,7 @@ function getCountALLInsert()
 
 
 
-function getALLInsert($player_id,$since, $weekday)
+function getALLInsert($player_id,$since=1500000000 , $weekday=-1)
 {
     $player = "";
     $player.=  "  WHERE   `player_id` > 0 ";
@@ -172,7 +172,8 @@ function getALLInsert($player_id,$since, $weekday)
     return get_Insert($query);
 }
 
-function getMyInsert($player_id,$since, $weekday)
+
+function getMyInsert($player_id,$since=1500000000 , $weekday=-1)
 {
     global  $user_data;
     $user_id = $user_data["user_id"];
