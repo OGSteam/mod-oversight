@@ -186,7 +186,7 @@ function getMyInsert($player_id,$since=1500000000 , $weekday=-1)
     $player.=  "  AND   `datatime` >  " .(int)(time() - $since * 24*60*60 );
     if ($weekday!=-1)
     {
-     //   $player.=  "  AND  valeur_date = ".$weekday."  ";
+        //   $player.=  "  AND  valeur_date = ".$weekday."  ";
         $player.=  "  AND   WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date))= ".$weekday." ";
 
     }
@@ -205,7 +205,7 @@ function get_Insert($query)
     $tRetour = array();
 
     while ($tStatus = $db->sql_fetch_row($result)) {
-;
+        ;
         $tRow = array();
         $tRow["id"] = $tStatus["id"];
         $tRow["coord"] = $tStatus["coord"];
@@ -272,5 +272,18 @@ function purgeInsertOrphan()
     $query .= " WHERE player_id NOT IN (select player_id as pid from   " . TABLE_OVERSIGHT_PLAYERS . "  )";
     $db->sql_query($query);
 
+}
+
+function makeDM($coodepart, $cooarrivee, $playerID) {
+    if (count(explode(":",$coodepart)) == 3 && count(explode(":",$cooarrivee)) == 3) {
+        global $db;
+        $query = "UPDATE ". TABLE_OVERSIGHT . " SET `coord` ='".$cooarrivee."' ";
+        $query .= " WHERE `player_id` = '" . $playerID . "' AND `coord` = '" . $coodepart . "' ";
+        $result = $db->sql_query($query);
+        return "Le DM a bien eu lieu !";
+    }
+    else {
+        return "Les coordonées du DM n'ont pas l'air ok il faut x:xxx:xx ex : 2:32:8. Valeurs fournies : $coodepart et $cooarrivee";
+    }
 }
 

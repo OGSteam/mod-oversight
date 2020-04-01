@@ -10,12 +10,11 @@ table.oversight{
 
 
 
-table.oversight td
+table.oversight th
 {
     background: none;
     background-color: lightgrey;
     border: none;
-    padding:0px;
     color: black;
 }
 table.oversight tr
@@ -29,17 +28,21 @@ table.oversight tr
 }
 
 
-table.oversight td.fullDate {
+table.oversight th.fullDate {
     color: #BCC1C7;
+    font-weight: bold;
     background: none;
     background-color: darkslategrey;
     border-style: solid;
     border-width: 1px;
     border-color: Black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
     /* background: none*/;
 }
 
-table.oversight td.tdtime {
+table.oversight th.tdtime {
     text-align: center;
     border-style: solid;
     border-width: 1px;
@@ -68,27 +71,57 @@ table.oversight td.tdinfo {
     color: lightgrey;
 
 }
-table.oversight td.value1 {
+table.oversight th.value-no {
     background-color: green;
     color: green;
 }
-
-table.oversight td.tdcdr {
-    text-align: center;
-    border-right: 1px solid red;
+table.oversight th.value-yes {
+    background-color: red;
+    color: red;
+}
+table.oversight th.value-timer {
+    background-color: orangered;
     color: black;
 }
-table.oversight td.tdcdr_ {
+
+.alertDM {
+    color: red;
+    font-weight: bolder;
+    font-size: large;
+}
+
+table.oversight .oversight-cdr {
+    border-bottom: 1px solid red;
+}
+
+table.oversight .oversight-coord {
+    border-bottom: 1px solid red;
+    border-right: 1px solid black;
+
+}
+
+table.oversight .oversight-hour {
+    background:none;
+}
+
+table.oversight th.tdcdr {
+    text-align: center;
+    border-bottom: 1px solid black;
+    color: black;
+    background-color: yellow;
+}
+table.oversight th.tdcdr_ {
     background-color:#423b3b;
 }
 
-table.oversight td.value {
+table.oversight th.value {
     background-color: #423b3b;
 }
 
 
-table.oversight tr.tdhead td {
-    color: darkslategray;
+table.oversight tr.tdhead th {
+    color: white;
+    font-weight: bold;
     background: none;
     background-color: grey;
     border-style: solid;
@@ -100,11 +133,11 @@ table.oversight tr.tdhead td {
 }
 
 table.findingplayer {
-        background-color: rgba(114,114,114,0.8);
-        border-color: red;
-        border-style: solid;
-        border-width: 1px;
-    }
+    background-color: rgba(114,114,114,0.8);
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+}
 
 
 
