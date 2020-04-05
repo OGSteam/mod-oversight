@@ -125,6 +125,11 @@ switch ($pub_page) {
         //si filtre non défini
         $data["nblastday"] = (isset($pub_nblastday))    ? (int)$pub_nblastday  : 30 ; // par defaut 30 jour
         $data["findday"] = (isset($pub_findday))    ? (int)$pub_findday  : -1 ; // par defaut 30 jour
+        $data["messageDM"] = "";
+        if (isset($pub_coodepart) && isset($pub_cooarrivee) && isset($pub_player_id)) {
+            $data["messageDM"] = makeDM($pub_coodepart, $pub_cooarrivee, $pub_player_id);
+        }
+
 
         //-------Logique-----------
         $data["menuactif"] = "analyse";
@@ -140,7 +145,7 @@ switch ($pub_page) {
         }
         //-------------------------
 
-       //-------Appel Vue---------
+        //-------Appel Vue---------
         include_once(FOLDER_VIEW . "header.php");
         include_once(FOLDER_VIEW . "menu.php");
         include_once(FOLDER_VIEW . "analyse.php");
