@@ -41,7 +41,7 @@ if (class_exists("Callback")) {
             $forDebug[]= "Oversight Debug";
             $_gal = $system["galaxy"];
             $_sys = $system["system"];
-            $row= 1;
+            $row= 0;
             foreach ($system["data"] as $rowContent)
             {
                 //print_r($rowContent);
