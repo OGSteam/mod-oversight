@@ -42,7 +42,6 @@ function myFormatTime($timestamp)
         return "";
     }
     return date("Y-m-d H:i:s", $timestamp);
-
 }
 
 function myFormatTimeQuick($timestamp)
@@ -50,11 +49,9 @@ function myFormatTimeQuick($timestamp)
     if ($timestamp == -1) {
         return "";
     }
-    setlocale(LC_ALL, 'fr_FR.UTF-8');//utf8
+    setlocale(LC_ALL, 'fr_FR.UTF-8'); //utf8
 
-    return strftime("%A %d %B %Y", $timestamp);
-
-
+    return date("l d M Y", $timestamp);
 }
 
 function myFormatTimeGetHours($timestamp)
@@ -63,7 +60,6 @@ function myFormatTimeGetHours($timestamp)
         return "";
     }
     return date("H", $timestamp);
-
 }
 
 function myFormatTimeGetMS($timestamp)
@@ -72,7 +68,6 @@ function myFormatTimeGetMS($timestamp)
         return "";
     }
     return date("i:s", $timestamp);
-
 }
 
 function myFormatPActiviy($value)
@@ -81,12 +76,11 @@ function myFormatPActiviy($value)
         return "";
     }
     return $value;
-
 }
 
 function formatMyInsert($tInsert)
 {
-//    print_r($tInsert);
+    //    print_r($tInsert);
     $retour = array();
     foreach ($tInsert as $insert) {
         $retour[$insert["datatime"]][$insert["coord"]]["M"] = $insert["m_activiy_value"];
@@ -96,15 +90,15 @@ function formatMyInsert($tInsert)
     return $retour;
 }
 
-function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
+function getAnalyseHTMLTable($tmstampToday, $tCoord, $tInsert)
 {
 
     ob_start(); //capture
-    setlocale(LC_ALL, 'fr_FR.UTF-8');//utf8
+    setlocale(LC_ALL, 'fr_FR.UTF-8'); //utf8
 
     $step = 15 * 60;
     $type =  array('P', 'M', 'cdr');
-    ?>
+?>
     <tr>
         <th colspan="50" class="fullDate">
             <?php echo myFormatTimeQuick($tmstampToday); ?>
@@ -120,65 +114,63 @@ function getAnalyseHTMLTable( $tmstampToday, $tCoord, $tInsert)
         </th>
         <?php for ($i = 0; $i < 24; $i++) : ?>
             <th class="oversight-hour" scope="col">
-                <?= $i.'h'; ?>
+                <?= $i . 'h'; ?>
             </th>
             <th class="oversight-hour" scope="col">
-                <?= $i.'h30'; ?>
+                <?= $i . 'h30'; ?>
             </th>
         <?php endfor; ?>
     </tr>
 
 
     <?php foreach ($tCoord as $coord) : ?>
-    <?php foreach ($type as $elem) : ?>
-        <tr>
-            <?php if ($elem == 'P') : ?>
-                <th class="oversight-coord" scope="row" rowspan="3">
-                    <?= $coord ?>
-                </th>
-            <?php endif; ?>
-            <th class="<?= $elem == 'cdr' ? 'oversight-cdr' : '' ?>" scope="row">
-                <?= $elem ?>
-            </th>
-            <?php for ($i = 0; $i < 48; $i++) : ?>
-                <?php
-                $dateArray = $tmstampToday + ($i * 2 * $step);
-                $dateArray2 = $tmstampToday + (($i * 2 + 1) * $step);
-                if (isset($tInsert[$dateArray2]))
-                    $dateArray = $dateArray2;
-                $val = (isset($tInsert[$dateArray][$coord][$elem])) ? $tInsert[$dateArray][$coord][$elem] : "";
-                $class = "";
-                if ($val !== "")
-                    $class = ($val == -1 ? "-no" : ($val == 0 ? "-yes" : "-timer"));
-                ?>
-                <?php if ($elem != "cdr") : ?>
-                    <th class="tdinfo value<?php echo $class; ?>">
-                        <?= $val ?>
-                    </th>
-                <?php else : ?>
-                    <th class="tdinfo tdcdr tdcdr_<?php echo $val; ?>">
-                        <?= $val ?>
+        <?php foreach ($type as $elem) : ?>
+            <tr>
+                <?php if ($elem == 'P') : ?>
+                    <th class="oversight-coord" scope="row" rowspan="3">
+                        <?= $coord ?>
                     </th>
                 <?php endif; ?>
-            <?php endfor; ?>
-        </tr>
-    <?php endforeach; ?>
-<?php endforeach ?>
+                <th class="<?= $elem == 'cdr' ? 'oversight-cdr' : '' ?>" scope="row">
+                    <?= $elem ?>
+                </th>
+                <?php for ($i = 0; $i < 48; $i++) : ?>
+                    <?php
+                    $dateArray = $tmstampToday + ($i * 2 * $step);
+                    $dateArray2 = $tmstampToday + (($i * 2 + 1) * $step);
+                    if (isset($tInsert[$dateArray2]))
+                        $dateArray = $dateArray2;
+                    $val = (isset($tInsert[$dateArray][$coord][$elem])) ? $tInsert[$dateArray][$coord][$elem] : "";
+                    $class = "";
+                    if ($val !== "")
+                        $class = ($val == -1 ? "-no" : ($val == 0 ? "-yes" : "-timer"));
+                    ?>
+                    <?php if ($elem != "cdr") : ?>
+                        <th class="tdinfo value<?php echo $class; ?>">
+                            <?= $val ?>
+                        </th>
+                    <?php else : ?>
+                        <th class="tdinfo tdcdr tdcdr_<?php echo $val; ?>">
+                            <?= $val ?>
+                        </th>
+                    <?php endif; ?>
+                <?php endfor; ?>
+            </tr>
+        <?php endforeach; ?>
+    <?php endforeach ?>
 
-    <?php
+<?php
     $HTMLReturn = ob_get_contents();
     ob_end_clean();
     return $HTMLReturn;
-
 }
 
 
 function getDisctinctDAte($insterts)
 {
     $tTmstampToday = array();
-    foreach ($insterts as $element)
-    {
-        $tTmstampToday[strtotime(date("Y-m-d", $element["datatime"]), $element["datatime"])]=true;
+    foreach ($insterts as $element) {
+        $tTmstampToday[strtotime(date("Y-m-d", $element["datatime"]), $element["datatime"])] = true;
     }
     return $tTmstampToday;
 }
