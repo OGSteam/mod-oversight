@@ -125,7 +125,7 @@ function delSurveillance($player)
     global $db, $user_data;
     $user_id = $user_data["user_id"];
 
-    $query .= "DELETE ";
+    $query = "DELETE ";
     $query .= "FROM " . TABLE_OVERSIGHT_PLAYERS;
     $query .= " WHERE ";
     $query .= " `sender_id` = " . $user_id;

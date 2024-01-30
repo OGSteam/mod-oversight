@@ -26,7 +26,7 @@ if ($security == true) {
 
 
     //Création de la table des oversight_players
-    $query = "CREATE TABLE `".TABLE_OVERSIGHT_PLAYERS."` (
+    $query = "CREATE TABLE  IF NOT EXISTS `".TABLE_OVERSIGHT_PLAYERS."` (
 					`id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
 					`sender_id` INT( 11 ) DEFAULT '0' NOT NULL ,
 					`player_id` INT( 11 ) DEFAULT '0' NOT NULL ,
@@ -36,7 +36,7 @@ if ($security == true) {
 
 
     //Création de la table des oversight_players
-    $query = "CREATE TABLE `".TABLE_OVERSIGHT."` (
+    $query = "CREATE TABLE  IF NOT EXISTS `".TABLE_OVERSIGHT."` (
 					`id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
 					`coord` VARCHAR( 11 ) NOT NULL  ,
 					`datatime` INT( 11 ) NOT NULL  ,
@@ -55,7 +55,7 @@ if ($security == true) {
 
 // On regarde si la table xtense_callbacks existe :
     $result = $db->sql_query('SHOW tables LIKE "' . TABLE_XTENSE_CALLBACKS . '"');
-    echo "<script>alert('" . $lang['no_xtense'] . "')</script>";
+
     if ($db->sql_numrows($result) != 0) {
         // Quelle est l'ID du mod ?
         // On récupère le n° d'id du mod
@@ -70,7 +70,7 @@ if ($security == true) {
         $nresult = $db->sql_numrows($result);
 
         // S'il n'y est pas : alors on l'ajoute !
-        if ($nresult == 0) $db->sql_query("INSERT INTO " . TABLE_XTENSE_CALLBACKS . " (mod_id, function, type, active) VALUES ('" . $mod_id . "', 'oversight', 'system', 1)");
+        if ($nresult == 0) $db->sql_query("REPLACE INTO " . TABLE_XTENSE_CALLBACKS . " (mod_id, function, type, active) VALUES ('" . $mod_id . "', 'oversight', 'system', 1)");
 
     }
 }

@@ -34,8 +34,7 @@ if (class_exists("Callback")) {
 
 
         function oversight($system)
-        {
-            global $user_data, $db, $table_prefix;
+        {            global $user_data, $db, $table_prefix;
             $players = getAllSurveillance();
             $forDebug=array();
             $forDebug[]= "Oversight Debug";
@@ -87,7 +86,7 @@ if (class_exists("Callback")) {
 
                 $row++;
             }
-           // print_r($forDebug);
+            //print_r($forDebug);
             return true;
         }
 

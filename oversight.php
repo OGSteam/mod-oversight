@@ -76,10 +76,11 @@ switch ($pub_page) {
         //datas communes
         $data["players"] = (isset($pub_findplayer))    ? getPlayer($db->sql_escape_string($pub_findplayer))  : array();
         $data["lastfind"] = (isset($pub_findplayer))    ? $db->sql_escape_string($pub_findplayer)  : "";
-        //-------Logique-----------
+
+       //-------Logique-----------
         if (isset($pub_id)) {
             addSurveillance((int)$pub_id);
-            $data["msg"][] = "Joueur " . $data["players"][(int)$pub_id]["name_player"] . " ajouté";
+            $data["msg"][] = "Joueur  ajouté";
         }
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
         $data["mySurveillance"] = getMySurveillance();
