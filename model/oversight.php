@@ -7,13 +7,13 @@ if (!defined('IN_SPYOGAME')) die("Hacking Attemp!");
 function getPlayer($defaultname="")
 {
     global $db;
-    $query="SELECT id_player, name_player ,	status";
-    $query.=" FROM " . TABLE_SPA_PLAYERS . " ";
+    $query="SELECT player_id, player ,	status";
+    $query.=" FROM " . TABLE_GAME_PLAYER . " ";
     if ($defaultname!="")
     {
-        $query.="WHERE  name_player like '%".$db->sql_escape_string($defaultname)."%' ";
+        $query.="WHERE  player like '%".$db->sql_escape_string($defaultname)."%' ";
     }
-    $query.=" order by name_player ASC";
+    $query.=" order by player ASC";
 
 
 
@@ -21,7 +21,7 @@ function getPlayer($defaultname="")
     $Tretour = array();
 
     while ($tPlayer = $db->sql_fetch_row($result)) {
-        $Tretour[$tPlayer["id_player"]] = array("id_player" => $tPlayer["id_player"], "name_player" => $tPlayer["name_player"], "status" => $tPlayer["status"]);
+        $Tretour[$tPlayer["player_id"]] = array("id_player" => $tPlayer["player_id"], "name_player" => $tPlayer["player"], "status" => $tPlayer["status"]);
 
     }
     return $Tretour;
@@ -33,7 +33,7 @@ function getPlayer($defaultname="")
 function getStatus()
 {
     global $db;
-    $result = $db->sql_query("SELECT distinct(status)FROM " . TABLE_SPA_PLAYERS . " order by status ASC ");
+    $result = $db->sql_query("SELECT distinct(status)FROM " . TABLE_GAME_PLAYER . " order by status ASC ");
     $tRetour = array();
 
     while ($tStatus = $db->sql_fetch_row($result)) {
