@@ -10,15 +10,16 @@ $data["menu"] = array();
 $data["menu"][] = array("nom" => "Liste", "url" => "list");
 $data["menu"][] = array("nom" => "Mise en surveillance", "url" => "add");
 $data["menu"][] = array("nom" => "Insertions", "url" => "insert");
-$data["menu"][] = array("nom" => "Stat", "url" => "stat");
+$data["menu"][] = array("nom" => "Information", "url" => "stat");
 
 
 //Message avertissements
 $data["msg"] = array();
 $data["alert"] = array();
-if (!superapixinstalled()) {
-    $data["alert"][] = "Attention, le mod superapix est requis";
-}
+// le mod superapix n 'est plus requis
+//if (!superapixinstalled()) {
+  //  $data["alert"][] = "Attention, le mod superapix est requis";
+//}
 
 //liste des pages autorisées
 
@@ -35,12 +36,13 @@ if (!in_array($pub_page, $allowedPages)) {
 switch ($pub_page) {
     case "insert":
         $data["players"] = getPlayer();
+        $data['limit'] = 5000; // limite  daffichage TODO modifiable
         //-------Logique-----------
         $data["menuactif"] = "insert";
         $data["getListOgspyUsers"]=getListOgspyUsers();
         //si null on doit tout montrer ....
         $data["player_id"] = (isset($data["player_id"]) )   ? (int)$pub_player_id  : null ;
-        $data["insert"] = (isset($pub_all) )   ? getALLInsert($data["player_id"]) : getMyInsert($data["player_id"]) ;
+        $data["insert"] = (isset($pub_all) )   ? getALLInsert($data["player_id"],$data['limit']) : getMyInsert($data["player_id"],$data['limit']) ;
 
         $data["ListSurveillance"] = getListSurveillance();
         //-------------------------
@@ -56,10 +58,11 @@ switch ($pub_page) {
         //datas communes
         $data["players"] = getPlayer();
         //-------Logique-----------
-        if (isset($pub_remove)&&isset($pub_player_id))
+        if (isset($pub_remove)&&isset($pub_player_id) && in_array($pub_player_id , getAllSurveillance()))
         {
+            $playerName =(getPlayer())[(int)$pub_player_id]["name_player"];
             delSurveillance($pub_player_id);
-            $data["msg"][] = "Suppression de la surveillance";
+            $data["msg"][] = "Suppression de la surveillance ".$playerName;
         }
         $data["menuactif"] = "list";
         $data["ListSurveillance"] = getListSurveillance();
@@ -78,9 +81,10 @@ switch ($pub_page) {
         $data["lastfind"] = (isset($pub_findplayer))    ? $db->sql_escape_string($pub_findplayer)  : "";
 
        //-------Logique-----------
-        if (isset($pub_id)) {
+        if (isset($pub_id) && !in_array($pub_id , getAllSurveillance())){
             addSurveillance((int)$pub_id);
-            $data["msg"][] = "Joueur  ajouté";
+            $playerName =(getPlayer())[(int)$pub_id]["name_player"];
+            $data["msg"][] = "Joueur ". $playerName . "  ajouté";
         }
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
         $data["mySurveillance"] = getMySurveillance();
@@ -136,13 +140,14 @@ switch ($pub_page) {
         $data["menuactif"] = "analyse";
         $data["player_id"] = (int)$pub_player_id;
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
+        $limit = 9999999999999;
         if (isset($pub_all))
         {
-            $data["insert"] = getALLInsert($data["player_id"],$data["nblastday"], $data["findday"] );
+            $data["insert"] = getALLInsert($data["player_id"],$limit,$data["nblastday"], $data["findday"] );
         }
         else
         {
-            $data["insert"] = getMyInsert($data["player_id"],$data["nblastday"], $data["findday"] );
+            $data["insert"] = getMyInsert($data["player_id"],$limit,$data["nblastday"], $data["findday"] );
         }
         //-------------------------
 

@@ -22,7 +22,7 @@ function roundtimestamp($value, $round = 900)
 function weekdaylist()
 {
     $retour = array();
-    $retour[-1] = 'Auncun';
+    $retour[-1] = 'Tous';
 
     $retour[0] = 'Lundi';
     $retour[1] = 'Mardi';
@@ -117,7 +117,8 @@ function getAnalyseHTMLTable($tmstampToday, $tCoord, $tInsert)
                 <?= $i . 'h'; ?>
             </th>
             <th class="oversight-hour" scope="col">
-                <?= $i . 'h30'; ?>
+            <!--<?= $i . 'h30'; ?>-->
+            <?= '30'; ?>
             </th>
         <?php endfor; ?>
     </tr>

@@ -5,6 +5,7 @@ body {
 table.oversight{
     border-spacing:0; /* Removes the cell spacing via CSS */
     border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
+    margin-bottom: 40px !important;
 }
 
 

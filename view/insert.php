@@ -31,7 +31,7 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
 
     <?php endif; ?>
 
-    <table>
+    <table class="og-table og-full-table">
         <thead>
         <tr>
             <th>
@@ -61,34 +61,34 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
         <tbody>
         <?php foreach ($data["insert"] as $insert): ?>
             <tr>
-                <td class="c">
+                <td>
                     <?php echo $insert["coord"]; ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo myFormatTime($insert["datatime"]); ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo myFormatPActiviy($insert["p_activiy_value"]); ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo myFormatTime($insert["p_activiy"]); ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo myFormatPActiviy($insert["m_activiy_value"]); ?>
-                </td>
-                <td class="c">
+        </td>
+               <td>
                     <?php echo myFormatTime($insert["m_activiy"]); ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo $insert["cdr"]; ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo $data["getListOgspyUsers"][$insert["sender_id"]]; ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo $insert["player_id"]; ?>
                 </td>
-                <td class="c">
+                <td>
                     <?php echo $data["players"][$insert["player_id"]]["name_player"] ; ?>
                 </td>
 

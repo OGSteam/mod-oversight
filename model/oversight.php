@@ -149,7 +149,7 @@ function getCountALLInsert()
 
 
 
-function getALLInsert($player_id,$since=1500000000 , $weekday=-1)
+function getALLInsert($player_id,$limit = 10000000,$since=1500000000 , $weekday=-1)
 {
     $player = "";
     $player.=  "  WHERE   `player_id` > 0 ";
@@ -168,12 +168,12 @@ function getALLInsert($player_id,$since=1500000000 , $weekday=-1)
 
     }
 
-    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player;
+    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player." Order by datatime ASC LIMIT ".(int)$limit;
     return get_Insert($query);
 }
 
 
-function getMyInsert($player_id,$since=1500000000 , $weekday=-1)
+function getMyInsert($player_id,$limit = 10000000,$since=1500000000 , $weekday=-1)
 {
     global  $user_data;
     $user_id = $user_data["user_id"];
@@ -191,7 +191,7 @@ function getMyInsert($player_id,$since=1500000000 , $weekday=-1)
 
     }
 
-    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player;
+    $query = "SELECT * ,  WEEKDAY(CAST(FROM_UNIXTIME(`datatime`) as date)) as newdate FROM " . TABLE_OVERSIGHT . " ".$player." Order by datatime ASC LIMIT ".(int)$limit;
 
     return get_Insert($query);
 }

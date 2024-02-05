@@ -4,7 +4,8 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt");
 setlocale(LC_TIME, "fr");
 
 $tCoord = get_DisctinctCoord($data["player_id"]);
-function sortCoo($a, $b) {
+function sortCoo($a, $b)
+{
     $a = explode(":", $a);
     $b = explode(":", $b);
     for ($i = 0; $i < count($a); $i++) {
@@ -37,67 +38,92 @@ $DisctinctDAte = getDisctinctDAte($insterts);
         </small>
     <?php endif; ?>
 </h2>
+<?php if (isset($data["messageDM"]) && $data["messageDM"] != "") : ?>
+    <div class="og-msg og-msg-warning">
+        <h3 class="og-title">Information</h3>
+        <p class="og-content"><?php echo $data["messageDM"]; ?></p>
+    </div>
+<?php endif ?>
+<form action="#" method="post">
+    <table class="og-table og-little-table">
+        <thead>
+            <tr>
+                <th colspan="2"> Enregistrer un DM :</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="tdstat">
+                    Coord départ :
+                </td>
+                <td>
+                    <input type="text" value="" name="coodepart" placeholder="x:xxx:xx">
+                </td>
+            </tr>
+            <tr>
+                <td class="tdstat">
+                    Coord arrivée :
+                </td>
+                <td>
+                    <input type="text" value="" name="cooarrivee" placeholder="x:xxx:xx">
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input class="og-button" type="submit" value="Valider !">
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</form>
 
-<table class="">
-    <span class="alertDM"><?= isset($data["messageDM"]) ? $data["messageDM"] : ""?></span>
-    <form action="#"  method="post">
-        <tr>
-            <td class="c">
-                Enregistrer un DM :
-            </td>
-            <th class="c">
-                <label>Coord départ : </label>
-                <input type="text" value="" name="coodepart" placeholder="x:xxx:xx">
-            </th>
-            <th class="c">
-                <label>Coord arrivée : </label>
-                <input type="text" value="" name="cooarrivee" placeholder="x:xxx:xx">
-            </th>
-            <th class="c">
-                <input type="submit" value="Valider !">
-            </th>
-        </tr>
-    </form>
-</table>
+<form action="#" method="post">
+    <table class="og-table og-little-table">
+    <thead>
+            <tr>
+                <th colspan="2"> Rechercher</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="tdstat">
+                    Nombre de jour à afficher :
+                </td>
+                <td>
+                    <input type="text" value="<?php echo $data["nblastday"] ?>" name="nblastday">
+                </td>
+            </tr>
+            <tr>
+                <td class="tdstat">
+                    Chercher un jour en particulier :
+                </td>
+                <td>
+                    <select name="findday">
+                        <?php foreach ($data["daylist"] as $index => $day) : ?>
+                            <?php $selected = (($data["findday"] == $index) ? " selected" : ""); ?>
+                            <option value="<?php echo $index; ?>" <?php echo $selected; ?>>
+                                <?php echo $day; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input class="og-button" type="submit" value="Rechercher !">
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</form>
 
-<table class="">
-    <form action="#"  method="post">
-        <tr>
-            <td class="c">
-                Nombre de jour à afficher :
-            </td>
-            <th class="c">
-                <input type="text" value="<?php echo $data["nblastday"]?>" name="nblastday">
-            </th>
-            <th class="c" rowspan="2">
-                <input type="submit" value="Rechercher!">
-            </th>
-        </tr>
-        <tr>
-            <td class="c">
-                Chercher un jour en particulier :
-            </td>
-            <th class="c">
-                <select name="findday">
-                    <?php foreach ($data["daylist"] as $index => $day ) : ?>
-                        <option value="<?php echo $index ; ?>"
-                            <?php if ($data["findday"]== $index) { echo " selected" ; }?>>
-                            <?php echo $day ; ?>
-                        </option>
-                    <?php endforeach ; ?>
-                </select>
-            </th>
-        </tr>
-    </form>
-</table>
 
 <hr />
-
 
 <table width="100%" class="oversight">
     <?php foreach ($DisctinctDAte as $key => $value) : ?>
         <?php echo getAnalyseHTMLTable($key, $tCoord, $tInsert); ?>
     <?php endforeach; ?>
-    <?php //echo getAnalyseHTMLTable($tmstampToday, $tCoord, $tInsert); ?>
+    <?php //echo getAnalyseHTMLTable($tmstampToday, $tCoord, $tInsert); 
+    ?>
 </table>
-
