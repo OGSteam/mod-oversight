@@ -25,10 +25,15 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($data["ListSurveillance"] as $key => $surveillance) : ?>
+        <?php foreach ($data["ListSurveillance"] as $key => $surveillance) : ?>
             <tr>
                 <td>
-                    <?php echo $data["players"][$key]["name_player"]; ?>
+                    <?php if (isset($data["players"][$key])) : ?>
+                        <?php echo $data["players"][$key]["name_player"]; ?>
+                    <?php else : ?>
+                        Joueur Inconnu (Enore present ?)
+                    <?php endif; ?>
+
                 </td>
                 <td>
                     <?php echo implode(", ", ($surveillance)); ?>
@@ -40,13 +45,13 @@ if (!defined('IN_SPYOGAME')) die("Hacking attempt"); ?>
                     </a>
                 </td>
                 -->
-                <td >
-                        <a class="og-button og-button-little " href="index.php?action=oversight&page=analyse&all&player_id=<?php echo $key; ?>">
-                            Analyser
-                        </a>
+                <td>
+                    <a class="og-button og-button-little " href="index.php?action=oversight&page=analyse&all&player_id=<?php echo $key; ?>">
+                        Analyser
+                    </a>
                 </td>
                 <td>
-                    <a  onclick="return confirm('Êtes-vous sûr de vouloir effectuer cette action?') ? window.location.href='index.php?action=oversight&page=list&remove&player_id=<?php echo $key; ?>' : false;" class="og-button og-button-little  og-button-danger" href="#">
+                    <a onclick="return confirm('Êtes-vous sûr de vouloir effectuer cette action?') ? window.location.href='index.php?action=oversight&page=list&remove&player_id=<?php echo $key; ?>' : false;" class="og-button og-button-little  og-button-danger" href="#">
                         Supprimer
                     </a>
                 </td>

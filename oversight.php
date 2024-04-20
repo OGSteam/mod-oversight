@@ -140,7 +140,7 @@ switch ($pub_page) {
         $data["menuactif"] = "analyse";
         $data["player_id"] = (int)$pub_player_id;
         $data["cssfile"] = FOLDER_CSS . "jscss.css";
-        $limit = 9999999999999;
+        $limit = 9999999999999; // a retravailler :/
         if (isset($pub_all))
         {
             $data["insert"] = getALLInsert($data["player_id"],$limit,$data["nblastday"], $data["findday"] );

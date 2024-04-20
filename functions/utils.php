@@ -117,7 +117,7 @@ function getAnalyseHTMLTable($tmstampToday, $tCoord, $tInsert)
                 <?= $i . 'h'; ?>
             </th>
             <th class="oversight-hour" scope="col">
-            <!--<?= $i . 'h30'; ?>-->
+            <!--<?= $i . 'h30'; ?> Petit ecran lisible jusque 1160px-->
             <?= '30'; ?>
             </th>
         <?php endfor; ?>
